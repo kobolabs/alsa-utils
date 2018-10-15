@@ -8,7 +8,7 @@ AM_INIT_AUTOMAKE
 AM_MAINTAINER_MODE([enable])
 
 AM_GNU_GETTEXT([external])
-AM_GNU_GETTEXT_VERSION([0.15])
+AM_GNU_GETTEXT_VERSION([0.19.8])
 
 dnl Checks for programs.
 
@@ -19,7 +19,6 @@ AC_PROG_MKDIR_P
 AC_PROG_LN_S
 AC_PROG_SED
 PKG_PROG_PKG_CONFIG
-AM_PATH_ALSA(1.0.27)
 if test "x$enable_alsatest" = "xyes"; then
 AC_CHECK_FUNC([snd_ctl_elem_add_enumerated],
 	      , [AC_ERROR([No user enum control support in alsa-lib])])
@@ -383,9 +382,6 @@ SAVE_UTIL_VERSION
 AC_SUBST(LIBRT)
 
 dnl Check for systemd
-PKG_CHECK_MODULES(SYSTEMD, [systemd >= 18],
-        [have_min_systemd="yes"],
-        [have_min_systemd="no"])
 AC_ARG_WITH([systemdsystemunitdir],
         AS_HELP_STRING([--with-systemdsystemunitdir=DIR], [Directory for systemd service files]),
         [], [with_systemdsystemunitdir=$($PKG_CONFIG --variable=systemdsystemunitdir systemd)])
@@ -421,7 +417,7 @@ AC_SUBST(ALSACTL_DAEMONSWITCH)
 
 AC_OUTPUT(Makefile alsactl/Makefile alsactl/init/Makefile \
 	  alsamixer/Makefile amidi/Makefile amixer/Makefile \
-	  m4/Makefile po/Makefile.in \
+	  m4/Makefile \
 	  alsaconf/alsaconf alsaconf/Makefile \
 	  alsaconf/po/Makefile \
 	  alsaucm/Makefile topology/Makefile \
